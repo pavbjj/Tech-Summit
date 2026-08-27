@@ -1,0 +1,48 @@
+{
+  "metadata": {
+    "name": "litellm-ai-gw",
+    "namespace": "p-kuligowski",
+    "labels": {},
+    "annotations": {},
+    "description": "LiteLLM AI Gateway container",
+    "disable": false
+  },
+  "spec": {
+    "origin_servers": [
+      {
+        "k8s_service": {
+          "service_name": "litellm.p-kuligowski",
+          "protocol": "PROTOCOL_TCP",
+          "site_locator": {
+            "virtual_site": {
+              "tenant": "f5-consult-prqnkato",
+              "namespace": "shared",
+              "name": "p-kuligowski-vsite-smsv2",
+              "kind": "virtual_site"
+            }
+          },
+          "vk8s_networks": {},
+          "snat_pool": {}
+        },
+        "labels": {}
+      }
+    ],
+    "no_tls": {},
+    "port": 4000,
+    "same_as_endpoint_port": {},
+    "healthcheck": [
+      {
+        "tenant": "f5-consult-prqnkato",
+        "namespace": "p-kuligowski",
+        "name": "tcp-health-check",
+        "kind": "healthcheck"
+      }
+    ],
+    "loadbalancer_algorithm": "LB_OVERRIDE",
+    "endpoint_selection": "LOCAL_PREFERRED",
+    "upstream_conn_pool_reuse_type": {
+      "enable_conn_pool_reuse": {}
+    }
+  },
+  "resource_version": "3581858043"
+}
