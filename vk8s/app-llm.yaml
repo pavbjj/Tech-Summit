@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rag-app
+  namespace: my-xc-namespace
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rag-app
+  template:
+    metadata:
+      labels:
+        app: rag-app
+    spec:
+      containers:
+        - name: rag-app
+          image: ksos/litellm-app:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8000
+          env:
+            - name: LITELLM_BASE_URL
+              value: "http://litellm:4000/v1"
+            - name: LITELLM_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: litellm-secret
+                  key: LITELLM_MASTER_KEY
+            - name: DEFAULT_MODEL
+              value: "auto"
+            - name: EMBED_MODEL
+              value: "nomic-embed-text"
+          volumeMounts:
+            - name: chroma-storage
+              mountPath: /app/chroma
+      volumes:
+        - name: chroma-storage
+          emptyDir: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: rag-app
+  namespace: my-xc-namespace
+spec:
+  selector:
+    app: rag-app
+  ports:
+    - port: 8000
+      targetPort: 8000
+  type: ClusterIP
