@@ -1,0 +1,53 @@
+{
+  "metadata": {
+    "name": "litellm-aigw",
+    "namespace": "p-kuligowski",
+    "labels": {},
+    "annotations": {},
+    "disable": false
+  },
+  "spec": {
+    "domains": [
+      "litellm:4000"
+    ],
+    "listen_port": 4000,
+    "no_sni": {},
+    "dns_volterra_managed": false,
+    "origin_pools": [],
+    "origin_pools_weights": [
+      {
+        "pool": {
+          "tenant": "f5-consult-prqnkato",
+          "namespace": "p-kuligowski",
+          "name": "litellm-ai-gw",
+          "kind": "origin_pool"
+        },
+        "weight": 1,
+        "priority": 1,
+        "endpoint_subsets": {}
+      }
+    ],
+    "advertise_custom": {
+      "advertise_where": [
+        {
+          "virtual_site": {
+            "network": "SITE_NETWORK_SERVICE",
+            "virtual_site": {
+              "tenant": "f5-consult-prqnkato",
+              "namespace": "shared",
+              "name": "p-kuligowski-vsite-smsv2",
+              "kind": "virtual_site"
+            }
+          },
+          "use_default_port": {}
+        }
+      ]
+    },
+    "hash_policy_choice_round_robin": {},
+    "idle_timeout": 3600000,
+    "retract_cluster": {},
+    "tcp": {},
+    "service_policies_from_namespace": {}
+  },
+  "resource_version": "3581888528"
+}
