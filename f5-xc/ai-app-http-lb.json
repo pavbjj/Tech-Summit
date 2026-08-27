@@ -39,7 +39,19 @@
       {}
     ],
     "advertise_on_public_default_vip": {},
-    "default_route_pools": [],
+    "default_route_pools": [
+      {
+        "pool": {
+          "tenant": "f5-consult-prqnkato",
+          "namespace": "p-kuligowski",
+          "name": "litellm-demo",
+          "kind": "origin_pool"
+        },
+        "weight": 1,
+        "priority": 1,
+        "endpoint_subsets": {}
+      }
+    ],
     "routes": [],
     "app_firewall": {
       "tenant": "f5-consult-prqnkato",
