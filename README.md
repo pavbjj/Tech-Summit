@@ -18,7 +18,7 @@ flowchart TB
         LB --> WAF --> BOT
     end
 
-    subgraph K8S["Kubernetes Cluster (p-kuligowski namespace)"]
+    subgraph K8S["vK8s Cluster (p-kuligowski namespace)"]
         direction TB
         SVC_FE["Service: frontend"]
         FE["Deployment: frontend-deployment\n(Web UI / API consumer)"]
